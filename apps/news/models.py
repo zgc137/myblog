@@ -48,11 +48,25 @@ class Comments(ModelBase):
     author = models.ForeignKey('users.User', on_delete=models.SET_NULL, null=True)
     news = models.ForeignKey('News', on_delete=models.CASCADE)
 
+    parent = models.ForeignKey('self',on_delete=models.CASCADE,null=True,blank=True)
+
+    #评论信息 content update_time author_username parent__content parent__author__username parent_update_time
     class Meta:
         ordering = ['-update_time', '-id']
         db_table = "tb_comments"  # 指明数据库表名
         verbose_name = "评论"  # 在admin站点中显示的名称
         verbose_name_plural = verbose_name  # 显示的复数名称
+
+    def to_dict_data(self):
+        comment_dict = {
+            'news_id':self.news.id,
+            'content_id':self.id,
+            'content':self.content,
+            'author':self.author.username,
+            'update_time':self.update_time.strftime('%Y{y}%m{m}%d{d}').format(y='年',m='月',d='日'),
+            'parent':self.parent.to_dict_data() if self.parent else None,
+        }
+        return comment_dict
 
     def __str__(self):
         return '<评论{}>'.format(self.id)
@@ -61,8 +75,13 @@ class Comments(ModelBase):
 class HotNews(ModelBase):
     """
     """
+    PRI_CHOICES=[
+        (1, '第一级'),
+        (2, '第二级'),
+        (3, '第三级'),
+    ]
     news = models.OneToOneField('News', on_delete=models.CASCADE)
-    priority = models.IntegerField(verbose_name="优先级", help_text="优先级")
+    priority = models.IntegerField(choices=PRI_CHOICES,verbose_name="优先级", help_text="优先级")
 
     class Meta:
         ordering = ['-update_time', '-id']
@@ -77,8 +96,16 @@ class HotNews(ModelBase):
 class Banner(ModelBase):
     """
     """
+    PRI_CHOICES = [
+        (1, '第一级'),
+        (2, '第二级'),
+        (3, '第三级'),
+        (4, '第四级'),
+        (5, '第五级'),
+        (6, '第六级'),
+    ]
     image_url = models.URLField(verbose_name="轮播图url", help_text="轮播图url")
-    priority = models.IntegerField(verbose_name="优先级", help_text="优先级")
+    priority = models.IntegerField(choices=PRI_CHOICES,verbose_name="优先级", help_text="优先级",default=6)
     news = models.OneToOneField('News', on_delete=models.CASCADE)
 
     class Meta:

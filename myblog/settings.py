@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'course',
     'news',
     'verifications',
+    # 'haystack', #haystack支持多种搜索引擎，不仅仅是whoosh，使用solr、elastic search等搜索，也可通过haystack，而且直接切换引擎即可，甚至无需修改搜索代码。
 
 ]
 
@@ -244,7 +245,19 @@ LOGGING = {             # 表示放在logging的参数里面已字典的形式�
     }
 }
 
-
+# # Haystack
+# HAYSTACK_CONNECTIONS = {
+#     'default': {
+#         'ENGINE': 'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
+#         'URL': 'http://192.168.216.137:9200/',  # 此处为elasticsearch运行的服务器ip地址，端口号默认为9200
+#         'INDEX_NAME': 'mysite',  # 指定elasticsearch建立的索引库的名称 数据库名
+#     },
+# }
+#
+# # 设置每页显示的数据量
+# HAYSTACK_SEARCH_RESULTS_PER_PAGE = 5
+# # 当数据库改变时，会自动更新索引
+# HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

@@ -17,10 +17,12 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
 from myblog import settings
+from news import views
 
 urlpatterns = [
     path('', include('news.urls')),
     path('', include('verifications.urls')),
     path(r'users/', include('users.urls')),
+    path('news/banners/', views.NewsBanner.as_view(), name='news_banner'),
     # path('admin/', admin.site.urls),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

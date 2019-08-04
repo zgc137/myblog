@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <title>{% block title %}{% endblock %}</title>
-  <link rel="stylesheet" href="../../static/css/base/reset.css">
+    <link rel="stylesheet" href="../../static/css/base/reset.css">
   <link rel="stylesheet" href="../../static/css/base/common.css">
   <link rel="stylesheet" href="../../static/css/base/side.css">
   <link rel="stylesheet" href="http://at.alicdn.com/t/font_684044_un7umbuwwfp.css">
@@ -29,7 +29,7 @@
         <li><a href="{% url 'news:index' %}">首页</a></li>
         <li><a href="../course/course.html">在线课堂</a></li>
         <li><a href="../doc/docDownload.html">下载文档</a></li>
-        <li><a href="search.html">搜索</a></li>
+        <li><a href="../news/search.html">搜索</a></li>
       </ul>
     </nav>
     <!-- nav end -->
@@ -188,10 +188,11 @@
 </footer>
 <!-- footer end -->
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
-<script src="{% static 'js/commons.js' %}"></script>
-<script src="{% static 'js/base/message.js' %}"></script>
+    <script src="{% static 'js/commons.js' %}"></script>
+    <script src="{% static 'js/base/message.js' %}"></script>
 
 {% block script %}
+
 {% endblock %}
 </body>
 </html>
